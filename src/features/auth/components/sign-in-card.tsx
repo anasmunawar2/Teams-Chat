@@ -11,8 +11,13 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { SignInFlow } from "../types";
 
-export const SignInCard = () => {
+interface SignInCardProps {
+  setState: (state: SignInFlow) => void;
+}
+
+export const SignInCard = ({ setState }: SignInCardProps) => {
   return (
     <Card className="w-full h-full p-8">
       <CardHeader className="px-0 pt-0">
@@ -70,7 +75,10 @@ export const SignInCard = () => {
 
         <p className="text-xs text-muted-foreground mt-4">
           Don't have an account?
-          <span className="text-sky-700 hover:underline cursor-pointer">
+          <span
+            className="text-sky-700 hover:underline cursor-pointer"
+            onClick={() => setState("signUp")}
+          >
             Sign Up
           </span>
         </p>
