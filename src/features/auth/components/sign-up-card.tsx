@@ -12,12 +12,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { SignInFlow } from "../types";
+import { useState } from "react";
 
-interface SignInCardProps {
+interface SignUpCardProps {
   setState: (state: SignInFlow) => void;
 }
 
-export const SignUpCard = ({ setState }: SignInCardProps) => {
+export const SignUpCard = ({ setState }: SignUpCardProps) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   return (
     <Card className="w-full h-full p-8">
       <CardHeader className="px-0 pt-0">
@@ -31,17 +35,25 @@ export const SignUpCard = ({ setState }: SignInCardProps) => {
         <form className="space-y-2.5">
           <Input
             disabled={false}
-            value=""
-            onChange={() => {}}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             type="email"
             required
           />
           <Input
             disabled={false}
-            value=""
-            onChange={() => {}}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
+            type="password"
+            required
+          />
+          <Input
+            disabled={false}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm password"
             type="password"
             required
           />
@@ -74,12 +86,12 @@ export const SignUpCard = ({ setState }: SignInCardProps) => {
         </div>
 
         <p className="text-xs text-muted-foreground mt-4">
-          Don't have an account?
+          Already have an account?
           <span
             className="text-sky-700 hover:underline cursor-pointer"
-            onClick={() => setState("signUp")}
+            onClick={() => setState("signIn")}
           >
-            Sign Up
+            Sign In
           </span>
         </p>
       </CardContent>
