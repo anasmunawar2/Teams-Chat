@@ -8,20 +8,20 @@ export const current = query({
     const userId = await auth.getUserId(ctx);
 
     if (!userId) {
-      return null; // Return null if the user is not authenticated
+      return null;
     }
 
-    const members = await ctx.db
+    const member = await ctx.db
       .query("members")
-      .withIndex("by_workspace_id_user_id", (q) =>
+      .withIndex("by_user_id_user_id", (q) =>
         q.eq("workspaceId", args.workspaceId).eq("userId", userId)
       )
       .collect();
 
-    if (!members || members.length === 0) {
-      return null; // Return null if no members are found
+    if (!member) {
+      return null;
     }
 
-    return members; // Return the array of members if found
+    return member;
   },
 });
