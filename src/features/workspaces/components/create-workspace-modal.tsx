@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useCreateWorkspace } from "@/features/auth/api/use-create-workspace";
+import { useCreateWorkspace } from "@/features/workspaces/api/use-create-workspace";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
