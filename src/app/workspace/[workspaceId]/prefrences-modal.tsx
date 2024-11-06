@@ -13,7 +13,7 @@ import { useRemoveWorkspace } from "@/features/workspaces/api/use-remove-workspa
 import { useUpdateWorkspace } from "@/features/workspaces/api/use-update-workspace";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { TrashIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -28,7 +28,7 @@ export const PrefrencesModal = ({
   initialValue,
 }: PrefrencesModalProps) => {
   const workspaceId = useWorkspaceId();
-  const router = useRouter();
+  // const router = useRouter();
   const [value, setValue] = useState(initialValue);
   const [editOpen, setEditOpen] = useState(false);
 
