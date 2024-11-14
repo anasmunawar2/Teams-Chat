@@ -7,38 +7,37 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 export const useConfirm = (
   title: string,
   message: string
-): [() => JSX.Element, () => Promise<unknown>] => {
+): [() => JSX.Element, () => Promise<boolean>] => {
   const [promise, setPromise] = useState<{
-    resolve: (value: boolean) => void | null;
-  }>(null);
+    resolve: (value: boolean) => void;
+  } | null>(null);
 
   const confirm = () =>
-    new Promise((resolve, reject) => {
+    new Promise<boolean>((resolve) => {
       setPromise({ resolve });
     });
 
-  const hanldeClose = () => {
+  const handleClose = () => {
     setPromise(null);
   };
 
   const handleCancel = () => {
     promise?.resolve(false);
-    hanldeClose();
+    handleClose();
   };
 
   const handleConfirm = () => {
     promise?.resolve(true);
-    hanldeClose();
+    handleClose();
   };
 
-  const confirmDialog = () => (
-    <Dialog open={promise !== null}>
+  const ConfirmDialog = () => (
+    <Dialog open={promise !== null} onOpenChange={handleClose}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
@@ -53,5 +52,6 @@ export const useConfirm = (
       </DialogContent>
     </Dialog>
   );
-  return [[confirmDialog], confirm];
+
+  return [ConfirmDialog, confirm];
 };

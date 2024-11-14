@@ -33,6 +33,7 @@ export const PrefrencesModal = ({
     "Are you sure?",
     "This action is irreversible."
   );
+
   const router = useRouter();
   const [value, setValue] = useState(initialValue);
   const [editOpen, setEditOpen] = useState(false);
