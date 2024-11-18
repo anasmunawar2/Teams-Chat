@@ -3,6 +3,7 @@ import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { AlertTriangle, Loader, MessageSquareText } from "lucide-react";
 import { WorkspaceHeader } from "./workspace-header";
+import { SidebarItem } from "./sidebar-item";
 
 export const WorkspaceSidebar = () => {
   const workspaceId = useWorkspaceId();
