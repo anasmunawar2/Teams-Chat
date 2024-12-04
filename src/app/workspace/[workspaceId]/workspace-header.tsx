@@ -11,6 +11,7 @@ import { ChevronDown, ListFilter, SquarePen } from "lucide-react";
 import { Hint } from "@/components/hint";
 import { PrefrencesModal } from "./prefrences-modal";
 import { useState } from "react";
+import InviteModal from "./invite-modal";
 
 interface WorkspaceHeaderProps {
   workspace: Doc<"workspaces">;
@@ -24,6 +25,7 @@ export const WorkspaceHeader = ({
   const [prefrencesOpen, setPrefrencesOpen] = useState(false);
   return (
     <>
+      <InviteModal />
       <PrefrencesModal
         open={prefrencesOpen}
         setOpen={setPrefrencesOpen}
