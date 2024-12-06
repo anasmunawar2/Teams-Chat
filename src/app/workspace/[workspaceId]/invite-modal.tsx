@@ -15,7 +15,11 @@ interface InviteModalProps {
 export const InviteModal = ({ open, setOpen }: InviteModalProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      Invite Modal
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Invite people for workspace</DialogTitle>
+        </DialogHeader>
+      </DialogContent>
     </Dialog>
   );
 };
