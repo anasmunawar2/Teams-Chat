@@ -22,10 +22,17 @@ export const WorkspaceHeader = ({
   workspace,
   isAdmin,
 }: WorkspaceHeaderProps) => {
+  const [inviteOpen, setInviteOpen] = useState(false);
   const [prefrencesOpen, setPrefrencesOpen] = useState(false);
+
   return (
     <>
-      <InviteModal />
+      <InviteModal
+        open={inviteOpen}
+        setOpen={setInviteOpen}
+        name={workspace.name}
+        joinCode={workspace.joinCode}
+      />
       <PrefrencesModal
         open={prefrencesOpen}
         setOpen={setPrefrencesOpen}
@@ -61,7 +68,7 @@ export const WorkspaceHeader = ({
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="cursor-pointer py-2"
-                  onClick={() => {}}
+                  onClick={() => setInviteOpen(true)}
                 >
                   Invite people to {workspace.name}
                 </DropdownMenuItem>
