@@ -5,7 +5,7 @@ import { useCreateChannelModal } from "@/features/channels/store/use-create-chan
 import { useGetWorkspace } from "@/features/workspaces/api/use-get-workspace";
 import { useWorkspaceId } from "@/hooks/use-workspace-id";
 import { Loader, TriangleAlert } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
 
 const WorkSpaceIdPage = () => {
