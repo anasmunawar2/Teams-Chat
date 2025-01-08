@@ -219,7 +219,7 @@ const Editor = ({
                 disabled={disabled}
                 variant="outline"
                 size="sm"
-                onClick={() => {}}
+                onClick={onCancel}
               >
                 Cancel
               </Button>
@@ -227,7 +227,12 @@ const Editor = ({
               <Button
                 disabled={disabled || isEmpty}
                 size="sm"
-                onClick={() => {}}
+                onClick={() => {
+                  onSubmit({
+                    body: JSON.stringify(quillRef.current?.getContents()),
+                    image,
+                  });
+                }}
                 className="bg-[#007a5a] hover:bg-[#007a5a]/80 text-white"
               >
                 Save
@@ -245,7 +250,12 @@ const Editor = ({
               )}
               size="iconSm"
               disabled={disabled || isEmpty}
-              onClick={() => {}}
+              onClick={() => {
+                onSubmit({
+                  body: JSON.stringify(quillRef.current?.getContents()),
+                  image,
+                });
+              }}
             >
               <MdSend className="size-4" />
             </Button>
