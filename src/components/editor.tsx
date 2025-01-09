@@ -271,7 +271,7 @@ const Editor = ({
           )}
         >
           <p>
-            <strong>Shift + Return</strong> to add a new line
+            <strong>Shift + Return</strong> to add a new line.
           </p>
         </div>
       )}
