@@ -149,7 +149,7 @@ export const Header = ({ title }: HeaderProps) => {
                   <DialogFooter>
                     <DialogClose asChild>
                       <Button variant="outline" disabled={isUpdatingChannel}>
-                        Cancle
+                        Cancel
                       </Button>
                     </DialogClose>
 
