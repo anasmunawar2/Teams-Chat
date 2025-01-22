@@ -25,7 +25,6 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
     body: string;
     image: File | null;
   }) => {
-    console.log({ body, image });
     createMessage({
       workspaceId,
       channelId,
