@@ -17,16 +17,13 @@ type Options = {
 export const useRemoveWorkspace = () => {
   const [data, setData] = useState<ResponseType>(null);
   const [error, setError] = useState<Error | null>(null);
-
   const [status, setStatus] = useState<
     "success" | "error" | "settled" | "pending" | null
   >(null);
-
   const isPending = useMemo(() => status === "pending", [status]);
   const isSuccess = useMemo(() => status === "success", [status]);
   const isError = useMemo(() => status === "error", [status]);
   const isSettled = useMemo(() => status === "settled", [status]);
-
   const mutation = useMutation(api.workspaces.remove);
 
   const mutate = useCallback(
@@ -35,7 +32,6 @@ export const useRemoveWorkspace = () => {
         setData(null);
         setError(null);
         setStatus("pending");
-
         const response = await mutation(values);
         options?.onSuccess?.(response);
         return response;

@@ -17,7 +17,6 @@ type Options = {
 export const useJoin = () => {
   const [data, setData] = useState<ResponseType>(null);
   const [error, setError] = useState<Error | null>(null);
-
   const [status, setStatus] = useState<
     "success" | "error" | "settled" | "pending" | null
   >(null);
@@ -26,7 +25,6 @@ export const useJoin = () => {
   const isSuccess = useMemo(() => status === "success", [status]);
   const isError = useMemo(() => status === "error", [status]);
   const isSettled = useMemo(() => status === "settled", [status]);
-
   const mutation = useMutation(api.workspaces.join);
 
   const mutate = useCallback(
@@ -35,7 +33,6 @@ export const useJoin = () => {
         setData(null);
         setError(null);
         setStatus("pending");
-
         const response = await mutation(values);
         options?.onSuccess?.(response);
         return response;
