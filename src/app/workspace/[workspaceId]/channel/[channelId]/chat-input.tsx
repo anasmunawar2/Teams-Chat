@@ -18,7 +18,7 @@ type CreateMessageValues = {
   channelId: Id<"channels">;
   workspaceId: Id<"workspaces">;
   body: string;
-  image?: Id<"_storage">;
+  image: Id<"_storage"> | undefined;
 };
 
 export const ChatInput = ({ placeholder }: ChatInputProps) => {
@@ -43,14 +43,42 @@ export const ChatInput = ({ placeholder }: ChatInputProps) => {
       setIsPending(true);
       editorRef?.current?.enable(false);
 
-      await createMessage(
-        {
-          workspaceId,
-          channelId,
-          body,
-        },
-        { throwError: true }
-      );
+      const values: CreateMessageValues = {
+        channelId,
+        workspaceId,
+        body,
+        image: undefined,
+      };
+
+      if (image) {
+        const url = await generateUploadUrl(
+          {},
+          {
+            throwError: true,
+          }
+        );
+
+        if (!url) {
+          throw new Error("Url not found");
+        }
+        const result = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": image.type,
+          },
+          body: image,
+        });
+
+        if (!result.ok) {
+          throw new Error("Failed to upload image");
+        }
+
+        const { storageId } = await result.json();
+
+        values.image = storageId;
+      }
+
+      await createMessage(values, { throwError: true });
 
       setEditorKey((prevKey) => prevKey + 1);
     } catch (error) {
