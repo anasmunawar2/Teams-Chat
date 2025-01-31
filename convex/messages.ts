@@ -3,6 +3,14 @@ import { mutation, QueryCtx } from "./_generated/server";
 import { auth } from "./auth";
 import { Id } from "./_generated/dataModel";
 
+const populateUser = (ctx: QueryCtx, userId: Id<"users">) => {
+  return ctx.db.get(userId);
+};
+
+export const populateMember = (ctx: QueryCtx, memberId: Id<"members">) => {
+  return ctx.db.get(memberId);
+};
+
 const getMember = async (
   ctx: QueryCtx,
   workspaceId: Id<"workspaces">,
