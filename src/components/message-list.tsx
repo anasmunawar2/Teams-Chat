@@ -1,6 +1,8 @@
 import { GetMessagesReturnType } from "@/features/messages/api/use-get-messages";
-import { format, isToday, isYesterday } from "date-fns";
+import { differenceInMinutes, format, isToday, isYesterday } from "date-fns";
 import Message from "./message";
+
+const TIME_THRESHOLD = 5;
 
 interface MessageListProps {
   memberName?: string;
@@ -56,6 +58,14 @@ const MessageList = ({
           </div>
 
           {messages.map((message, index) => {
+            const prevMessage = messages[index - 1];
+            const isCompact =
+              prevMessage &&
+              prevMessage.user?._id === message.user?._id &&
+              differenceInMinutes(
+                new Date(message._creationTime),
+                new Date(prevMessage._creationTime)
+              ) < TIME_THRESHOLD;
             return (
               <Message
                 key={message._id}
@@ -70,7 +80,7 @@ const MessageList = ({
                 updatedAt={message.updatedAt}
                 isEditing={false}
                 setEditingId={() => {}}
-                isCompact={false}
+                isCompact={isCompact}
                 hideThreadButton={false}
                 createdAt={message._creationTime}
                 threadCount={message.threadCount}
