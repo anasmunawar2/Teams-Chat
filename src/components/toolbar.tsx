@@ -35,7 +35,12 @@ const Toolbar = ({
         </EmojiPopover>
         {!hideThreadButton && (
           <Hint label="Reply in thread">
-            <Button variant="ghost" size="iconSm" disabled={isPending}>
+            <Button
+              variant="ghost"
+              onClick={handleThread}
+              size="iconSm"
+              disabled={isPending}
+            >
               <MessageSquareTextIcon className="size-4" />
             </Button>
           </Hint>
@@ -43,7 +48,12 @@ const Toolbar = ({
 
         {isAuthor && (
           <Hint label="Edit message">
-            <Button variant="ghost" size="iconSm" disabled={isPending}>
+            <Button
+              variant="ghost"
+              onClick={handleEdit}
+              size="iconSm"
+              disabled={isPending}
+            >
               <Pencil className="size-4" />
             </Button>
           </Hint>
@@ -51,7 +61,12 @@ const Toolbar = ({
 
         {isAuthor && (
           <Hint label="Delete message">
-            <Button variant="ghost" size="iconSm" disabled={isPending}>
+            <Button
+              variant="ghost"
+              onClick={handleDelete}
+              size="iconSm"
+              disabled={isPending}
+            >
               <Trash className="size-4" />
             </Button>
           </Hint>
