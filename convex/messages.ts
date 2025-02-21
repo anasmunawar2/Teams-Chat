@@ -2,7 +2,7 @@ import { v } from "convex/values";
 import { mutation, query, QueryCtx } from "./_generated/server";
 import { auth } from "./auth";
 import { Doc, Id } from "./_generated/dataModel";
-import { count, timeStamp } from "console";
+
 import { paginationOptsValidator } from "convex/server";
 
 const populateThread = async (ctx: QueryCtx, messageId: Id<"messages">) => {
@@ -97,6 +97,35 @@ export const update = mutation({
       body: args.body,
       updatedAt: Date.now(),
     });
+
+    return args.id;
+  },
+});
+
+export const remove = mutation({
+  args: {
+    id: v.id("messages"),
+  },
+  handler: async (ctx, args) => {
+    const userId = await auth.getUserId(ctx);
+
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const message = await ctx.db.get(args.id);
+
+    if (!message) {
+      throw new Error("Message not found");
+    }
+
+    const member = await getMember(ctx, message.workspaceId, userId);
+
+    if (!member || member._id !== message.memberId) {
+      throw new Error("Unauthorized");
+    }
+
+    await ctx.db.delete(args.id);
 
     return args.id;
   },
