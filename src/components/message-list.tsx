@@ -43,6 +43,7 @@ const MessageList = ({
   const workspaceId = useWorkspaceId();
 
   const { data: currentMember } = useCurrentMember({ workspaceId });
+
   const groupedMessages = data?.reduce(
     (groups, message) => {
       const date = new Date(message._creationTime);
