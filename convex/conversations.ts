@@ -21,10 +21,14 @@ export const createOrGet = mutation({
       )
       .unique();
 
+    if (!currentMember) {
+      throw new Error("Current member not found");
+    }
+
     const otherMember = await ctx.db.get(args.memberId);
 
-    if (!currentMember || otherMember) {
-      throw new Error("Member not found");
+    if (!otherMember) {
+      throw new Error("Other member not found");
     }
 
     const existingConversation = await ctx.db
