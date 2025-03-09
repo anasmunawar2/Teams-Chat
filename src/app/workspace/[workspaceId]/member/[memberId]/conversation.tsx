@@ -4,6 +4,9 @@ import { useMemberId } from "@/hooks/use-member-id";
 import { UseGetMember } from "@/features/members/api/use-get-member";
 import { useGetMessages } from "@/features/messages/api/use-get-messages";
 import { Loader } from "lucide-react";
+import { Header } from "./header";
+import { ChatInput } from "./chat-input";
+import MessageList from "@/components/message-list";
 
 interface ConversationProps {
   id: Id<"conversations">;
@@ -27,7 +30,28 @@ const Conversation = ({ id }: ConversationProps) => {
     );
   }
 
-  return <div></div>;
+  return (
+    <div className="flex flex-col h-full">
+      <Header
+        memberName={member?.user.name}
+        memberImage={member?.user.image}
+        onClick={() => {}}
+      />
+      <MessageList
+        data={results}
+        variant="conversation"
+        memberImage={member?.user.image}
+        memberName={member?.user.name}
+        loadMore={loadMore}
+        isLoadingMore={status === "LoadingMore"}
+        canLoadMore={status === "CanLoadMore"}
+      />
+      <ChatInput
+        placeholder={`Message ${member?.user.name}`}
+        conversationId={id}
+      />
+    </div>
+  );
 };
 
 export default Conversation;
