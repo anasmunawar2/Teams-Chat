@@ -98,6 +98,7 @@ const MessageList = ({
                 createdAt={message._creationTime}
                 threadCount={message.threadCount}
                 threadImage={message.threadImage}
+                threadName={message.threadName}
                 threadTimeStamp={message.threadTimeStamp}
               />
             );

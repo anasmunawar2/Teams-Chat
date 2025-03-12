@@ -45,6 +45,7 @@ interface MessageProps {
   hideThreadButton?: boolean;
   threadCount?: number;
   threadImage?: string;
+  threadName?: string;
   threadTimeStamp?: number;
 }
 
@@ -68,6 +69,7 @@ const Message = ({
   hideThreadButton,
   threadCount,
   threadImage,
+  threadName,
   threadTimeStamp,
   isCompact,
 }: MessageProps) => {
@@ -177,6 +179,8 @@ const Message = ({
                   count={threadCount}
                   image={threadImage}
                   timestamp={threadTimeStamp}
+                  name={threadName}
+                  onClick={() => onOpenMessage(id)}
                 />
               </div>
             )}
@@ -253,6 +257,8 @@ const Message = ({
                 count={threadCount}
                 image={threadImage}
                 timestamp={threadTimeStamp}
+                name={threadName}
+                onClick={() => onOpenMessage(id)}
               />
             </div>
           )}
