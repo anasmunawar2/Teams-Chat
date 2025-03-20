@@ -2,19 +2,41 @@ import React from "react";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { UseGetMember } from "../api/use-get-member";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, Loader, MailIcon, XIcon } from "lucide-react";
+import {
+  AlertTriangle,
+  ChevronDown,
+  Loader,
+  MailIcon,
+  XIcon,
+} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { useUpdateMember } from "../api/use-update-member";
+import { useRemoveMember } from "../api/use-remove-member";
+import { useCurrentMember } from "../api/use-current-member";
+import { useWorkspaceId } from "@/hooks/use-workspace-id";
 
 interface ProfileProps {
   memberId: Id<"members">;
   onClose: () => void;
 }
 const Profile = ({ memberId, onClose }: ProfileProps) => {
-  const { data: member, isLoadingMember } = UseGetMember({ id: memberId });
+  const workspaceId = useWorkspaceId();
+  const { data: currentMember, isLoading: isLoadingCurrentMember } =
+    useCurrentMember({
+      workspaceId,
+    });
+  const { data: member, isLoading: isLoadingMember } = UseGetMember({
+    id: memberId,
+  });
 
-  if (isLoadingMember) {
+  const { mutate: updateMember, isPending: isUpdatingMember } =
+    useUpdateMember();
+  const { mutate: removeMember, isPending: isRemovingMember } =
+    useRemoveMember();
+
+  if (isLoadingMember || isLoadingCurrentMember) {
     return (
       <div className="flex h-full flex-col">
         <div className="flex justify-between items-center px-4 h-[49px] border-b">
@@ -68,6 +90,18 @@ const Profile = ({ memberId, onClose }: ProfileProps) => {
 
       <div className="flex flex-col p-4">
         <p className="text-xl font-bold">{member.user.name}</p>
+        {currentMember?.role === "admin" && currentMember?._id === memberId ? (
+          <div className="flex items-center gap-2 mt-4">
+            <Button variant="outline" className="w-full capitalize">
+              {member.role}
+              <ChevronDown className="size-4 ml-2" />
+            </Button>
+
+            <Button variant="outline" className="w-full">
+              Remove
+            </Button>
+          </div>
+        ) : null}
       </div>
 
       <Separator />
