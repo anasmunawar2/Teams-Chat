@@ -90,7 +90,7 @@ const Profile = ({ memberId, onClose }: ProfileProps) => {
 
       <div className="flex flex-col p-4">
         <p className="text-xl font-bold">{member.user.name}</p>
-        {currentMember?.role === "admin" && currentMember?._id === memberId ? (
+        {currentMember?.role === "admin" && currentMember?._id !== memberId ? (
           <div className="flex items-center gap-2 mt-4">
             <Button variant="outline" className="w-full capitalize">
               {member.role}
